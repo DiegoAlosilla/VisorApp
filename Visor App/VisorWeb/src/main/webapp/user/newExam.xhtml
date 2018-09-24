@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+
+
+	<link href="../resources/CSS/estilos.css" rel="stylesheet"
+		type="text/css" />
+	<title>Examenes UPC</title>
+</h:head>
+<body>
+	<div class="padre">
+
+		<div class="panelMenu">
+			<h:form>
+				<p:panelGrid columns="1" style="width:300px">
+					<img src="../resources/IMG/UPC_logo.png" width="150" height="150" />
+					<p:outputLabel value="Bienvenido #{loginController.student.nombre}"
+						style="font-weight: bold" />
+
+					<p:commandButton value="Inicio" icon="ui-icon-plus"
+						action="index?faces-redirect=true" immediate="true"
+						style=" width:200px" />
+
+					<p:commandButton value="Subir Examnes" icon="ui-icon-plus"
+						action="newExam?faces-redirect=true" immediate="true"
+						style=" width:200px" />
+
+					<p:commandButton value="Perfil" icon="ui-icon-plus"
+						action="perfil?faces-redirect=true" immediate="true"
+						style=" width:200px" />
+
+					<p:commandButton value="Cerrar Sesion" icon="ui-icon-power"
+						actionListener="#{loginController.closeSesion()}"
+						url="../login.xhtml" style=" width:200px" />
+				</p:panelGrid>
+			</h:form>
+
+		</div>
+
+		<div class="panelDatos">
+
+			<h:form enctype="multipart/form-data" id="newExam">
+				<p:panelGrid columns="1" style="width:600px; margin:0 auto;">
+					<p:outputLabel value="Subir Exam"
+						style="font-weight: bold; font-size:40px;" />
+
+					<img src="../resources/IMG/examen.png" width="150" height="150" />
+
+					<p:panelGrid id="datos" columns="2" style="margin:0 auto;">
+						<p:outputLabel value="Curso" />
+						<p:selectOneMenu id="cboCourse" value="#{examController.course}"
+							converter="omnifaces.SelectItemsConverter">
+							<f:selectItems value="#{examController.courses}" var="course"
+								itemLabel="#{course.course}" itemValue="#{course}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Tipo de Examen" />
+
+						<p:selectOneMenu id="cboExam" value="#{examController.exam.tipo}">
+							<f:selectItems value="#{examController.tipoExams}" var="tipoe"
+								itemLabel="#{tipoe.name}" itemValue="#{tipoe}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Ciclo" />
+
+						<p:selectOneMenu id="cboCycle" value="#{examController.exam.year}">
+							<f:selectItems value="#{examController.years}" var="cycle"
+								itemLabel="#{cycle.name}" itemValue="#{cycle}" />
+						</p:selectOneMenu>
+					</p:panelGrid>
+
+					<p:panelGrid id="botnonExaminar" columns="1" style="margin:0 auto;">
+						<p:fileUpload value="#{examController.pdf}" mode="simple"
+							label="Examinar" skinSimple="true" />
+					</p:panelGrid>
+
+					<p:panelGrid id="Subir" style="margin: 0 auto;">
+						<p:commandButton value="Subir Examen"
+							action="#{examController.saveExam(loginController.student)}"
+							ajax="false" />
+						<p:growl id="messages" showDetail="true" />
+					</p:panelGrid>
+
+				</p:panelGrid>
+			</h:form>
+
+		</div>
+
+	</div>
+</body>
+</html>

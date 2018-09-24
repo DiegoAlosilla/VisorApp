@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="../resources/CSS/estilos.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+<body>
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<p:messages autoUpdate="true" />
+				<p:panel>
+					<f:facet name="header">Nuevo Curso</f:facet>
+					<h:panelGrid columns="2">
+
+						<p:outputLabel for="txtName" value="Curso" />
+
+						<p:inputText id="txtName"
+							value="#{courseController.course.course}" size="30"
+							required="true" />
+
+
+						<h:outputLabel for="cboCarreras" value="Carreras:" />
+
+						<p:selectCheckboxMenu id="cboCarreras"
+							value="#{courseController.careerSelections}" label="Carreras"
+							multiple="true" filter="true" filterMatchMode="startsWith"
+							panelStyle="width:250px">
+							<f:selectItems value="#{courseController.careers}" var="c"
+								itemLabel="#{c.career}" itemValue="#{c}" />
+						</p:selectCheckboxMenu>
+
+						<p:message for="txtName" display="text" />
+						<h:column />
+
+					</h:panelGrid>
+					<p:commandButton value="Registrar"
+						action="#{courseController.saveCourse()}" />
+					<p:commandButton value="Volver"
+						action="/admin/course?faces-redirect=true" immediate="true" />
+
+				</p:panel>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</body>
+</html>

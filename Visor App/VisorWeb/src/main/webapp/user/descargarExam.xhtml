@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="../resources/CSS/estilos.css" rel="stylesheet"
+		type="text/css" />
+	<title>Examenes UPC</title>
+</h:head>
+<body>
+	<div class="padre">
+
+		<div class="panelMenu">
+			<h:form>
+				<p:panelGrid columns="1" style="width:300px">
+					<img src="../resources/IMG/UPC_logo.png" width="150" height="150" />
+					<p:outputLabel value="Bienvenido #{loginController.student.nombre}"
+						style="font-weight: bold" />
+					<p:outputLabel
+						value="Examen #{examController.examSelection.tipo.name}"
+						style="font-weight: bold" />
+
+					<p:commandButton value="Inicio" icon="ui-icon-plus"
+						action="index?faces-redirect=true" immediate="true"
+						style=" width:200px" />
+
+					<p:commandButton value="Subir Examnes" icon="ui-icon-plus"
+						action="newExam?faces-redirect=true" immediate="true"
+						style=" width:200px" />
+
+					<p:commandButton value="Perfil" icon="ui-icon-plus"
+						action="perfil?faces-redirect=true" immediate="true"
+						style=" width:200px" />
+
+					<p:commandButton value="Cerrar Sesion" icon="ui-icon-power"
+						actionListener="#{loginController.closeSesion()}"
+						url="../login.xhtml" style=" width:200px" />
+				</p:panelGrid>
+			</h:form>
+		</div>
+
+		<div class="panelDatos">
+
+			<h:form>
+				<!-- <p:panelGrid columns="1" style="width:600px; margin:0 auto;">
+					<p:outputLabel value="Datos Examen"
+						style="font-weight: bold; font-size:40px;" />
+					<p:panelGrid id="datos" columns="2" style="margin:0 auto;">
+
+						<p:outputLabel value="Curso"
+							style="font-weight: bold; font-size:20px;" />
+						<p:outputLabel value="#{examController.exam.idCourse.course}" />
+
+						<p:outputLabel value="Tipo de Examen"
+							style="font-weight: bold; font-size:20px;" />
+						<p:outputLabel value="#{examController.exam.tipo.name}" />
+
+						<p:outputLabel value="Ciclo"
+							style="font-weight: bold; font-size:20px;" />
+						<p:outputLabel value="#{examController.exam.cycle}" />
+					</p:panelGrid>
+					
+					<p:panelGrid id="PDF" style="margin:0 auto;">
+
+						<h3>PDF</h3>
+						<object type="application/pdf" data="#{examController.pdf}"
+							height="300px" width="550px"> Your browser can't display
+							pdf, instead. </object>
+					</p:panelGrid>
+					<p:panelGrid id="Subir" style="margin: 0 auto;">
+						<p:commandButton value="Subir Examen"
+							action="#{examController.saveExam(loginController.student)}"
+							ajax="false" />
+						<p:growl id="messages" showDetail="true" />
+					</p:panelGrid>
+					
+					
+				</p:panelGrid>-->
+
+				<p:panelGrid columns="1" id="pg">
+					<p:outputLabel value="Datos Examen"
+						style="font-weight: bold; font-size:40px;" />
+					<p:panelGrid columns="2" style="width:700px">
+
+						<p:outputLabel style="font-weight: bold; font-size:20px;">ID</p:outputLabel>
+						<p:outputLabel value="#{examController.exam.id}" />
+
+						<p:outputLabel style="font-weight: bold; font-size:20px;">Ciclo</p:outputLabel>
+						<p:outputLabel value="#{examController.examSelection.cycle}" />
+
+						<p:outputLabel style="font-weight: bold; font-size:20px;">Tipo</p:outputLabel>
+						<p:outputLabel value="#{examController.exam.tipoExamen}"></p:outputLabel>
+
+						<p:outputLabel style="font-weight: bold; font-size:20px;">Autor</p:outputLabel>
+						<p:outputLabel value="#{examController.exam.idStudent.nombre}"></p:outputLabel>
+
+						<p:outputLabel style="font-weight: bold; font-size:20px;">Curso</p:outputLabel>
+						<p:outputLabel
+							value="#{examController.examSelection.idCourse.course}"></p:outputLabel>
+					</p:panelGrid>
+					<h3>PDF</h3>
+					<object type="application/pdf" data="#{examController.exam.file}"
+						height="300px" width="550px"> Your browser can't display
+						pdf, instead. </object>
+					<p:panelGrid columns="2" style="margin: 0 auto;">
+						<p:commandButton value="Volver" action="index?faces-redirect=true"
+							immediate="true" />
+
+						<p:commandButton value="Download" ajax="false"
+							onclick="PrimeFaces.monitorDownload(start, stop);"
+							icon="ui-icon-arrowthick-1-s">
+							<p:fileDownload value="#{examController.exam.file}" />
+						</p:commandButton>
+					</p:panelGrid>
+				</p:panelGrid>
+			</h:form>
+
+		</div>
+
+	</div>
+</body>
+</html>

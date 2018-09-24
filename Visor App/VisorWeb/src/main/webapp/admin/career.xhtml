@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="../resources/CSS/estilos.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+
+<body>
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<p:dataTable id="pg" var="c" value="#{careerController.careers}"
+					rowKey="#{c.id}" selection="#{careerController.careerSelection}"
+					selectionMode="single" rows="10" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<p:column headerText="IdCarrera">
+						<h:outputText value="#{c.id}" />
+					</p:column>
+					<p:column headerText="Nombre">
+						<h:outputText value="#{c.career}" />
+					</p:column>
+				</p:dataTable>
+				<br />
+				<h:panelGrid columns="3">
+					<p:commandButton id="btnNuevo" value="Nuevo" ajax="false"
+						action="#{careerController.newCareer()}" />
+					<p:commandButton id="btnActualizar" value="Editar" ajax="false"
+						action="#{careerController.editCareer()}" />
+					<p:commandButton value="Eliminar"
+						action="#{careerController.deleteCareer()}" update="pg" />
+				</h:panelGrid>
+				<p:messages id="messages" showDetail="false" autoUpdate="true" />
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</body>
+</html>

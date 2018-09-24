@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="../resources/CSS/estilos.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+<body>
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+		<ui:define name="content">
+
+			<h:form>
+
+				<p:messages autoUpdate="true" />
+				<p:panel>
+					<f:facet name="header">Editar Curso</f:facet>
+					<h:panelGrid id="pg" columns="4">
+
+						<p:outputLabel for="txtId" value="Codigo" />
+						<p:inputText id="txtId" value="#{courseController.course.id}"
+							size="30" required="true" readonly="true" />
+						<p:message for="txtId" display="text" />
+						<h:column />
+
+						<p:outputLabel for="txtName" value="Carrera" />
+						<p:inputText id="txtName"
+							value="#{courseController.course.course}" size="30"
+							required="true" />
+						<p:message for="txtName" display="text" />
+						<h:column />
+
+
+					</h:panelGrid>
+					<p:commandButton value="Actualizar"
+						action="#{courseController.updateCourse()}" update="pg" />
+					<p:commandButton value="Volver"
+						action="career?faces-redirect=true" immediate="true" />
+
+				</p:panel>
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

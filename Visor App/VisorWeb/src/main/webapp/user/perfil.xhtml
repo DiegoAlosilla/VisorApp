@@ -1,0 +1,77 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<f:event listener="#{loginController.checkSesion()}"
+		type="preRenderView" />
+
+	<link href="../resources/CSS/estilos.css" rel="stylesheet"
+		type="text/css" />
+	<title>Examenes UPC</title>
+</h:head>
+<body>
+	<div class="padre">
+
+		<div class="panelMenu">
+			<h:form>
+				<p:panelGrid columns="1" style="width:300px">
+					<img src="../resources/IMG/UPC_logo.png" width="150" height="150" />
+					<p:outputLabel value="Bienvenido #{loginController.student.nombre}" style="font-weight: bold"/>
+					<p:commandButton value="Inicio" icon="ui-icon-plus"
+						action="index?faces-redirect=true" immediate="true"  style=" width:200px"/>
+
+					<p:commandButton value="Subir Examnes" icon="ui-icon-plus"
+						action="newExam?faces-redirect=true" immediate="true"  style=" width:200px"/>
+
+					<p:commandButton value="Perfil" icon="ui-icon-plus"
+						action="perfil?faces-redirect=true" immediate="true"  style=" width:200px"/>
+
+
+					<p:commandButton value="Cerrar Sesion" icon="ui-icon-power"
+						actionListener="#{loginController.closeSesion()}"
+						url="../login.xhtml"  style=" width:200px"/>
+
+
+				</p:panelGrid>
+
+
+
+
+			</h:form>
+
+		</div>
+
+		<div class="panelDatos">
+
+			<h:form>
+				<p:panelGrid columns="1" >
+					<p:outputLabel value="Mi Perfil" style="font-weight: bold; font-size:40px;" />
+					<img src="../resources/IMG/Usuario.png" width="250" height="250" />
+					<p:panelGrid columns="2" style="width:700px">
+						<p:outputLabel style="font-weight: bold; font-size:20px;">Nombre</p:outputLabel>
+						<p:outputLabel value="#{loginController.student.nombre}"></p:outputLabel>
+						<p:outputLabel style="font-weight: bold;">Apellido</p:outputLabel>
+						<p:outputLabel value="#{loginController.student.apellidos}"></p:outputLabel>
+						<p:outputLabel style="font-weight: bold;">TIU</p:outputLabel>
+						<p:outputLabel value="#{loginController.student.tiu}"></p:outputLabel>
+						<p:outputLabel style="font-weight: bold;">Puntos</p:outputLabel>
+						<p:outputLabel value="#{loginController.student.puntos}"></p:outputLabel>
+					</p:panelGrid>
+					<p:commandButton value="Editar Datos"
+						action="editStudent?faces-redirect=true" immediate="true" />
+
+				</p:panelGrid>
+			</h:form>
+
+
+
+		</div>
+
+	</div>
+</body>
+</html>

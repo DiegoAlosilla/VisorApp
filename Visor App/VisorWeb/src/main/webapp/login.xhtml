@@ -1,0 +1,39 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<link href="resources/CSS/estilos.css" rel="stylesheet" type="text/css" />
+	<title>Examenes UPC</title>
+
+</h:head>
+<body>
+
+	<div class="ContenedorTransparent">
+		<div class="login">
+			<h:form>
+				<p:panelGrid columns="1">
+					<H2 class="titulos">Iniciar Sesion</H2>
+					<img src="resources/IMG/UPC_logo.png" width="100" height="100" />
+					<p:inputText id="txtUsuario" placeholder="TIU" style="center"
+						value="#{loginController.student.tiu}" required="true" />
+					<p:password id="txtPassword" placeholder="Contraseña"
+						value="#{loginController.student.password}" required="true" />
+					<p:commandButton icon="ui-icon-key" value="Iniciar Sesion"
+						action="#{loginController.login()}" />
+						
+				</p:panelGrid>
+			</h:form>
+		</div>
+	</div>
+
+
+
+
+
+</body>
+</html>

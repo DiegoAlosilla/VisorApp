@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="../resources/CSS/estilos.css" rel="stylesheet"
+		type="text/css" />
+	<title>Examenes UPC</title>
+
+</h:head>
+
+<body>
+	<div class="padre">
+
+		<div class="panelMenu">
+			<h:form>
+				<p:panelGrid columns="1" style="width:300px">
+					<img src="../resources/IMG/UPC_logo.png" width="150" height="150" />
+					<p:outputLabel value="Bienvenido #{loginController.student.nombre}"
+						style="font-weight: bold" />
+					<p:commandButton value="Inicio" icon="ui-icon-plus"
+						action="index?faces-redirect=true" immediate="true"
+						style=" width:200px" />
+					<p:commandButton value="Subir Examnes" icon="ui-icon-plus"
+						action="newExam?faces-redirect=true" immediate="true"
+						style=" width:200px" />
+					<p:commandButton value="Perfil" icon="ui-icon-plus"
+						action="perfil?faces-redirect=true" immediate="true"
+						style=" width:200px" />
+					<p:commandButton value="Cerrar Sesion" icon="ui-icon-power"
+						actionListener="#{loginController.closeSesion()}"
+						action="../login?faces-redirect=true" immediate="true"
+						style=" width:200px" />
+				</p:panelGrid>
+			</h:form>
+		</div>
+
+		<div class="panelDatos">
+			<div id="barraBusqueda">
+				<h:form>
+					<p:panelGrid columns="5" style="width:800px">
+						<!--  <p:selectOneMenu value="#{careerController.career}"
+							converter="omnifaces.SelectItemsConverter">
+							<f:selectItem itemLabel="Carreras" itemValue="" />
+							<f:selectItems value="#{careerController.careers}" var="c"
+								itemLabel="#{c.career}" itemValue="#{c}" />
+						</p:selectOneMenu>-->
+						<p:selectOneMenu value="#{courseController.course}"
+							converter="omnifaces.SelectItemsConverter">
+							<f:selectItem itemLabel="Curso" itemValue="" />
+							<f:selectItems value="#{courseController.courses}" var="course"
+								itemLabel="#{course.course}" itemValue="#{course}" />
+						</p:selectOneMenu>
+
+						<p:selectOneMenu id="cboCycle" value="#{examController.exam.year}">
+							<f:selectItems value="#{examController.years}" var="cycle"
+								itemLabel="#{cycle.name}" itemValue="#{cycle}" />
+						</p:selectOneMenu>
+
+						<p:selectOneMenu id="cboExam" value="#{examController.exam.tipo}">
+							<f:selectItems value="#{examController.tipoExams}" var="tipoe"
+								itemLabel="#{tipoe.name}" itemValue="#{tipoe}" />
+						</p:selectOneMenu>
+
+						<p:commandButton id="btnBuscar" update="listaExamnes"
+							value="Buscar" ajax="true"
+							action="#{examController.getByFilter(course,cycle,tipoe)}" />
+
+					</p:panelGrid>
+				</h:form>
+			</div>
+
+			<div id="listaExamenes" class="panelDatos">
+				<h:form id="listaExamnes">
+					
+						<p:dataTable var="c" value="#{examController.exams}"
+							rowKey="#{c.id}" selection="#{examController.examSelection}"
+							selectionMode="single" rows="10" paginator="true"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+						{PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15" style="width:800px">
+
+							<!--<p:column headerText="id">
+							<p:outputLabel value="#{c.id}" />
+						</p:column>
+
+						<p:column headerText="Curso">
+							<p:outputLabel value="#{c.idCourse.course}" />
+						</p:column>
+
+						<p:column headerText="TipoExamen">
+							<p:outputLabel value="#{c.tipoExamen}" />
+						</p:column>
+
+						<p:column headerText="Ciclo">
+							<p:outputLabel value="#{c.cycle}" />
+						</p:column>-->
+
+							<!--<p:column headerText="PDF">
+							<img src="../resources/IMG/pdf.png" width="150" height="150" />
+						</p:column>-->
+							<p:column headerText="PDF">
+								<img src="../resources/IMG/pdf.png" width="100" height="100" />
+							</p:column>
+
+							<p:column headerText="Datos">
+								<p:panelGrid columns="2">
+									<p:outputLabel value="Curso"
+										style="font-weight: bold; font-size:20px;" />
+									<p:outputLabel value="#{c.idCourse.course}" />
+
+									<p:outputLabel value="Ciclo"
+										style="font-weight: bold; font-size:20px;" />
+									<p:outputLabel value="#{c.cycle}" />
+
+									<p:outputLabel value="Tipo"
+										style="font-weight: bold; font-size:20px;" />
+									<p:outputLabel value="#{c.tipoExamen}" />
+									
+									<p:outputLabel value="Autor"
+										style="font-weight: bold; font-size:20px;" />
+									<p:outputLabel value="#{c.idStudent.nombre}" />
+								</p:panelGrid>
+							</p:column>
+
+							<!--<p:column style="width:32px;text-align: center">
+							<p:commandButton 
+								action="#{examController.descargarExamen()}" icon="ui-icon-search"
+								title="View">
+								<f:setPropertyActionListener value="#{c}"
+									target="#{examController.examSelection}" />
+							</p:commandButton>
+						</p:column>-->
+
+						</p:dataTable>
+						<p:panelGrid columns="1" style="width:800px">
+							<p:commandButton id="btnDescargar" value="Descargar Selecionado"
+								ajax="false" action="#{examController.descargarExamen()}" />
+						</p:panelGrid>
+					
+					<p:messages id="messages" showDetail="false" autoUpdate="true" />
+				</h:form>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
